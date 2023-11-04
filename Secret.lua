@@ -6,6 +6,7 @@ _G.L2 = true
 _G.L3 = true
 _G.Reb = true
 
+
 function L1()
 while _G.L1 == true do
     wait(0.5)
@@ -25,6 +26,43 @@ while _G.L1 == true do
     end
 end
     
+function L2()
+    while _G.L2 == true do
+        wait(0.5)
+        for i, v in workspace.Tycoons:GetChildren() do
+            if v.Owner.Value == game.Players.LocalPlayer.Name then
+                local base = v:GetChildren()
+                    if #base < 6 then
+                        local args = {
+                            [1] = "Load",
+                            [2] = "Layout2"
+                        }
+        
+                        game:GetService("ReplicatedStorage").Layouts:InvokeServer(unpack(args))
+                    end
+                end
+            end
+        end
+    end
+    
+function L3()
+while _G.L3 == true do
+    wait(0.5)
+    for i, v in workspace.Tycoons:GetChildren() do
+        if v.Owner.Value == game.Players.LocalPlayer.Name then
+            local base = v:GetChildren()
+                if #base < 6 then
+                    local args = {
+                        [1] = "Load",
+                        [2] = "Layout3"
+                    }
+    
+                    game:GetService("ReplicatedStorage").Layouts:InvokeServer(unpack(args))
+                end
+            end
+        end
+    end
+end
     
 function Reb()
     while _G.Reb == true do
@@ -34,7 +72,9 @@ function Reb()
         }
 
         game:GetService("ReplicatedStorage"):WaitForChild("Rebirth"):InvokeServer(unpack(args))
+    end
 end
+
 
 local AutoTab = Window:MakeTab({
     Name = "Automation",
@@ -51,6 +91,23 @@ AutoTab:AddToggle({
 	end    
 })
 
+AutoTab:AddToggle({
+	Name = "Auto Loadout 2",
+	Default = false,
+	Callback = function(Value)
+		_G.L2 = Value
+        L2()
+	end    
+})
+
+AutoTab:AddToggle({
+	Name = "Auto Loadout 3",
+	Default = false,
+	Callback = function(Value)
+		_G.L3 = Value
+        L3()
+	end    
+})
 
 AutoTab:AddToggle({
 	Name = "Auto Rebirth",
